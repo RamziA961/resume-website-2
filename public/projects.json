@@ -1,0 +1,23 @@
+{
+    "2021": [
+        {
+            "title": "Towards a Tool that Facilitates Designing Robotic Hands",
+            "start": "October, 2021",
+            "end": "present",
+            "collaborators": ["Researchers from the University of Copenhagen", "Researchers from San Francisco State University"],
+            "description": "A project focused on accumulating data about existing robot hands in the academic and commercial domains to develop tools that assist researchers and experts in designing new iterations of these devices.",
+            "papers" : {}
+            
+        },
+        {
+            "title": "An Investigation of Haptic Feedback Design Parameters",
+            "start": "July, 2021",
+            "end": "present",
+            "collaborators": ["Researchers from the University of Copenhagen", "Researchers from the Gwangju Institute of Science and Technology"],
+            "description": "A research project centred around discovering the most prevalent parameters in guiding user perception of vibrotactile stimuli. The investigation aims to assist haptic designers and researchers in further understanding the best practices of creating haptic icons. We hope to contribute to the field by implementing a tool that predicts the dissimilarity between two vibrotactile stimuli.",
+            "papers" : {
+                "Vibrotactile Similarity Perception in Crowdsourced and Lab Studies" : ""
+            }
+        }
+    ]
+}
