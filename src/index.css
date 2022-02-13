@@ -23,7 +23,8 @@ body {
 	height: 100%;
 }
 
-.css-nnw8om-MuiTimelineItem-root:before {
+
+::before {
 	display: none;
 }
 
