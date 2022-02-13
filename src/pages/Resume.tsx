@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Box, LinearProgress, Slide } from '@mui/material'
 import axios from 'axios'
+import ReactGA from 'react-ga'
 
 import { AppState, DispatchAction, DispatchActionType } from '../reducers/Reducer'
 
@@ -18,7 +19,6 @@ const Resume : React.FC<{
     
     useEffect(() => {
         if(!content) {
-            
             (async () => {
                 try {
                     const res = await axios({
@@ -39,8 +39,18 @@ const Resume : React.FC<{
                 }
             })()
         }
+    })
 
-    }, [])
+    useEffect(() => {
+        const start = Date.now()
+        
+        return () => ReactGA.event({
+            category: 'User Engagement',
+            label: 'Resume',
+            action: 'Duration of Interaction (Minutes)',
+            value: Math.round((Date.now() - start) / (60 * 1000))
+        })
+    })
 
     return (
         <Box

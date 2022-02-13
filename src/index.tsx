@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import ReactGA from 'react-ga'
 
 import '@fontsource/roboto/300.css'
 import '@fontsource/roboto/400.css'
@@ -12,6 +13,8 @@ import { ColorModeProvider } from './contexts/ColorModeContext'
 
 
 import reportWebVitals from './reportWebVitals'
+
+ReactGA.initialize('UA-197112302-1', {alwaysSendToDefaultTracker: true})
 
 ReactDOM.render(
 	<React.StrictMode>

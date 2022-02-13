@@ -1,10 +1,13 @@
-import { useReducer, useRef } from 'react'
-import { Box, useMediaQuery } from '@mui/material'
+import { useEffect, useReducer, useRef } from 'react'
+import { Box } from '@mui/material'
 import {
     BrowserRouter,
     Routes,
-    Route
+    Route,
+    Navigate
 } from 'react-router-dom';
+import ReactGA from 'react-ga'
+
 
 import Header from './components/Header'
 import Home from './pages/Home'
@@ -13,11 +16,14 @@ import Publications from './pages/Publications';
 import Resume from './pages/Resume'
 
 import Reducer, { AppState } from './reducers/Reducer';
+import detectPalettePreferences from './helpers/DetectPalettePreferences';
+
+// const Initializer : React.FC<{}> = (props) =>
 
 const App = (): JSX.Element => {
-
+    console.log('hihi')
     const defaultAppState : AppState = {
-        palette: useMediaQuery('(prefers-color-scheme: dark)') ? 'dark' : 'light',
+        palette: detectPalettePreferences(),
         routes: [
             {title: 'Home', path: ''},
             {title: 'Publications', path: 'pub'},
@@ -31,6 +37,31 @@ const App = (): JSX.Element => {
             animationDir: 'up'
         }
     }
+
+    useEffect(() => {
+        const title = defaultAppState.routes.find(val => `/${val.path}` === window.location.pathname)?.title
+        const path = !window.location.pathname ? '/' : window.location.pathname
+        const search = window.location.search
+        
+        ReactGA.pageview(
+            search ? `${path}${search}` : path,
+            undefined,
+            title
+        )
+    }, [window.location.pathname])
+
+    useEffect(() => {
+        const start = Date.now()
+
+        window.onbeforeunload = () => {
+            ReactGA.event({
+                category: 'User Engagement',
+                label: 'Web Application',
+                action: 'Duration of Interaction (Minutes)',
+                value: Math.round((Date.now() - start) / (60 * 1000))
+            })
+        }
+    })
     
     const container = useRef(null)
     const [state, dispatch] = useReducer(Reducer, defaultAppState)
@@ -48,6 +79,7 @@ const App = (): JSX.Element => {
                     <Route path = 'pub' element = { <Publications state = {state} dispatch = {dispatch}/> }/>
                     <Route path = 'proj' element = { <Projects state = {state} dispatch = {dispatch}/> }/>
                     <Route path = 'resume' element = { <Resume state = {state} dispatch = {dispatch}/> }/>
+                    <Route path = '*' element = {<Navigate to = '/'/>}/>
                 </Routes>
             </BrowserRouter>  
         </Box>    

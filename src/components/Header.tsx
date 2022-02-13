@@ -1,20 +1,14 @@
 import { Link } from 'react-router-dom'
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { 
-    Avatar, 
     Box, 
     Button, 
     Divider,
     IconButton, 
-    ListItemIcon, 
-    Menu, 
-    MenuItem,
-    Slide,
     Stack, 
     Tooltip, 
     Typography 
 } from "@mui/material"
-import { Code, GitHub, Mail } from '@mui/icons-material'
 import { Brightness3, Brightness7 } from '@mui/icons-material'
 
 import { AppState, DispatchAction, DispatchActionType } from '../reducers/Reducer'
@@ -22,7 +16,6 @@ import ColorModeContext from '../contexts/ColorModeContext'
 
 
 const Header : React.FC<{state: AppState, dispatch: React.Dispatch<DispatchActionType>}> = (props): JSX.Element => {
-    const { state, dispatch } = props
 
     return (
         <Box 
@@ -30,8 +23,6 @@ const Header : React.FC<{state: AppState, dispatch: React.Dispatch<DispatchActio
             alignItems = 'center'
             mb = '0.25em'
         >
-            {/* <Title state={state} dispatch = {dispatch}/>
-            <NavBar/> */}
             <Title {...props}/>
             <NavBar {...props}/>
         </Box>
@@ -47,8 +38,13 @@ const Title : React.FC<{
 
     const handleClick = () => {
         colorContext.toggleColorMode()
-        dispatch(DispatchAction('CHANGE_THEME', []))
+        dispatch(DispatchAction('CHANGE_THEME', {}))
     }
+
+    useEffect(() => {
+        if(localStorage.getItem('palette') !== state.palette)
+            localStorage.setItem('palette', state.palette)
+    })
 
     return (
         <Stack 

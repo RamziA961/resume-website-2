@@ -47,7 +47,12 @@ const ProfileSummary: React.FC<{
 			        	variant = 'rounded'
 			        	alt = 'Ramzi Abou Chahine'
 			        	src = '/snapshot.png'
-			        	sx = {{width: '10rem', height: '10rem', justifySelf: 'center', alignSelf: 'center'}}
+			        	sx = {{
+                            width: '10rem', 
+                            height: '10rem', 
+                            justifySelf: 'center', 
+                            alignSelf: 'center',
+                        }}
 			        >
 			        	RA
 			        </Avatar>
