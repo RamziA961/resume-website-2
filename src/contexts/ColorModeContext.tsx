@@ -15,6 +15,8 @@ export const ColorModeProvider : React.FC<{}> = (props) => {
         pref
 
     const [mode, setMode] = useState<'light' | 'dark'>(pref)
+
+    localStorage.setItem('palette', pref)
     
     const colorMode = useMemo(() => ({
         toggleColorMode: () => {

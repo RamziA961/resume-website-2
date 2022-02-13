@@ -8,18 +8,18 @@ import '@fontsource/roboto/500.css'
 import '@fontsource/roboto/700.css'
 
 import './index.css';
-import App from './App'
 import { ColorModeProvider } from './contexts/ColorModeContext'
-
+import Initializer from './App'
 
 import reportWebVitals from './reportWebVitals'
+
 
 ReactGA.initialize('UA-197112302-1', {alwaysSendToDefaultTracker: true})
 
 ReactDOM.render(
 	<React.StrictMode>
 		<ColorModeProvider>
-			<App/>
+			<Initializer />
 		</ColorModeProvider>
 	</React.StrictMode>,
 	document.getElementById('root')

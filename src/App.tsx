@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useRef } from 'react'
+import { useEffect, useMemo, useReducer, useRef } from 'react'
 import { Box } from '@mui/material'
 import {
     BrowserRouter,
@@ -14,16 +14,12 @@ import Home from './pages/Home'
 import Projects from './pages/Projects';
 import Publications from './pages/Publications';
 import Resume from './pages/Resume'
-
 import Reducer, { AppState } from './reducers/Reducer';
-import detectPalettePreferences from './helpers/DetectPalettePreferences';
 
-// const Initializer : React.FC<{}> = (props) =>
+const Initializer : React.FC<{}> = (props) => {
 
-const App = (): JSX.Element => {
-    console.log('hihi')
     const defaultAppState : AppState = {
-        palette: detectPalettePreferences(),
+        palette: !localStorage.getItem('palette') ? 'light' : localStorage.getItem('palette') as 'dark' | 'light',
         routes: [
             {title: 'Home', path: ''},
             {title: 'Publications', path: 'pub'},
@@ -38,8 +34,22 @@ const App = (): JSX.Element => {
         }
     }
 
-    useEffect(() => {
-        const title = defaultAppState.routes.find(val => `/${val.path}` === window.location.pathname)?.title
+    return (
+        <App initialState = {defaultAppState}/>
+    )
+}
+
+const App : React.FC<{
+    initialState: AppState
+}> = (props): JSX.Element => {
+    
+    const { initialState } = props
+
+    const container = useRef(null)
+    const [state, dispatch] = useReducer(Reducer, initialState)
+
+    useMemo(() => {
+        const title = state.routes.find(val => `/${val.path}` === window.location.pathname)?.title
         const path = !window.location.pathname ? '/' : window.location.pathname
         const search = window.location.search
         
@@ -50,7 +60,7 @@ const App = (): JSX.Element => {
         )
     }, [window.location.pathname])
 
-    useEffect(() => {
+    useMemo(() => {
         const start = Date.now()
 
         window.onbeforeunload = () => {
@@ -61,11 +71,8 @@ const App = (): JSX.Element => {
                 value: Math.round((Date.now() - start) / (60 * 1000))
             })
         }
-    })
+    }, [])
     
-    const container = useRef(null)
-    const [state, dispatch] = useReducer(Reducer, defaultAppState)
-   
     return (
         <Box 
             bgcolor = 'background.default' 
@@ -86,4 +93,4 @@ const App = (): JSX.Element => {
     )
 }
 
-export default App
+export default Initializer
