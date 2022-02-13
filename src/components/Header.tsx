@@ -126,7 +126,8 @@ const NavBar : React.FC<{
 
     const { state, dispatch } = props
 
-    const [active, setActive] = useState(window.location.pathname.at(0) === '/' ? 
+    const [active, setActive] = useState(
+        window.location.pathname || window.location.pathname.at(0) === '/' ? 
         window.location.pathname.slice(1) 
         : 
         window.location.pathname

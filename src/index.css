@@ -24,7 +24,7 @@ body {
 }
 
 
-::before {
+.MuiTimelineItem-root::before {
 	display: none;
 }
 

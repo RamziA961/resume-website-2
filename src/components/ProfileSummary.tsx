@@ -139,7 +139,7 @@ const ProfilePageOne : React.FC<{
                 <Paper elevation={16} style = {{padding: 4, width: '100%'}}>
                     <Typography variant = 'body1'>
                     I am a recent San Francisco State University Computer Science graduate, earning my 
-                    diploma with high distinction; soon to be a graduate student pursuing an MSc in 
+                    diploma with high distinction; soon to be a graduate student pursuing a MSc in 
                     Advanced Computing. I am currently seeking new opportunities to kickstart my career.
                     I have experience developing software from the kernel-level to the cloud. I am well-versed
                     in serveral programming languages and proficient in several frameworks and tools. 

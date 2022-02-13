@@ -80,7 +80,7 @@ const ContactInfo : React.FC<{
 			  		<TimelineDot color="secondary">
 						<Code
 							style = {treeDotStyle}
-							onClick = {() => onClick('')}
+							onClick = {() => onClick('https://github.com/RamziA961/resume-website-2')}
 						/>
 			  		</TimelineDot>
 			  		<TimelineConnector />
