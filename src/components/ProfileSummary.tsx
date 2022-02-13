@@ -2,8 +2,9 @@ import { KeyboardArrowDown, KeyboardArrowUp } from "@mui/icons-material"
 import { DiJava, DiJavascript1, DiPython, DiSqllite, DiSwift } from 'react-icons/di'
 import { FiMoreHorizontal } from 'react-icons/fi'
 import { SiAmazonaws, SiC, SiCplusplus, SiFirebase, SiGit, SiGooglecloud, SiJquery, SiMongodb, SiMysql, SiNginx, SiR, SiReact, SiTypescript, SiXcode } from 'react-icons/si'
-import { Avatar, Chip, Divider, Grid, IconButton, Paper, Slide, Stack, SxProps, Theme, Typography, Zoom } from "@mui/material"
+import { Avatar, Chip, Divider, Grid, IconButton, Paper, Skeleton, Slide, Stack, SxProps, Theme, Typography, Zoom } from "@mui/material"
 import React, { useEffect, useRef, useState } from "react"
+import axios from 'axios'
 
 import { AppState, DispatchAction, DispatchActionType } from "../reducers/Reducer"
 import BackGroundIcon from "./BackgroudIcon"
@@ -19,10 +20,29 @@ const ProfileSummary: React.FC<{
 
     const container = useRef(null)
     const [ imgRendered, setRendered ] = useState(false)
-   
-    useEffect(()=>{
+    const [ content, setContent ] = useState<undefined | string>(state.home.profileImage)
 
-    }, [container])
+    useEffect(() => {
+        (async () => {
+            
+            const res = await axios({
+                url: '/snapshot.png',
+                method: 'GET',
+                responseType: 'blob',
+            })
+            
+            const url = URL.createObjectURL(res.data)
+            setContent(url)
+            dispatch(DispatchAction('SET_PROFILE_IMAGE', { profileImage: url }))
+        })()
+    }, [])
+
+    const avatarStyle = {
+        width: '10rem', 
+        height: '10rem', 
+        justifySelf: 'center', 
+        alignSelf: 'center',
+    }
 
     return (
         <Stack 
@@ -43,19 +63,21 @@ const ProfileSummary: React.FC<{
                 addEndListener = {() => setTimeout(() => setRendered(true), 500)}
             >
                 <Stack justifyContent= 'center' alignItems = 'center' spacing = {0} color = 'text.primary'>
-                    <Avatar 
-			        	variant = 'rounded'
-			        	alt = 'Ramzi Abou Chahine'
-			        	src = '/snapshot.png'
-			        	sx = {{
-                            width: '10rem', 
-                            height: '10rem', 
-                            justifySelf: 'center', 
-                            alignSelf: 'center',
-                        }}
-			        >
-			        	RA
-			        </Avatar>
+                    {state.home.profileImage ?
+                        <Avatar 
+			            	variant = 'rounded'
+			            	alt = 'Ramzi Abou Chahine'
+			            	src = { state.home.profileImage }
+			            	sx = { avatarStyle }
+			            >
+			            	RA
+			            </Avatar>
+                        :
+                        <Skeleton 
+                            variant = 'rectangular'
+                            sx = {avatarStyle}
+                        />
+                    }
                     <Typography variant = 'overline' py = {0}>
                         Ramzi Abou Chahine
                     </Typography>

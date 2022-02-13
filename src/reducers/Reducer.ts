@@ -11,7 +11,8 @@ export type AppState = {
         currPage: number,
         numPages: number,
         onPage: boolean,
-        animationDir: 'up' | 'down'
+        animationDir: 'up' | 'down',
+        profileImage?: string
     }
 }
 
@@ -23,7 +24,8 @@ export type DispatchOperationType =
     'SET_PROFILE_PAGE' |
     'SET_CURR_HOME_PAGE' |
     'SET_ON_HOME_PAGE' |
-    'SET_ANIM_DIR'
+    'SET_ANIM_DIR' |
+    'SET_PROFILE_IMAGE'
 
 export type DispatchActionType = {
     type?: DispatchOperationType
@@ -104,6 +106,14 @@ const Reducer = (state: AppState , action : DispatchActionType) : AppState => {
                 if (payload && payload['animationDir'] && 
                     (payload['animationDir'] === 'up' || payload['animationDir'] === 'down'))
                     newState.home.animationDir = payload['animationDir']
+
+                return newState
+            }
+            case 'SET_PROFILE_IMAGE': {
+                let newState = {...state}
+
+                if (payload && payload['profileImage'] && typeof payload['profileImage'] === 'string')
+                    newState.home.profileImage = payload['profileImage']
 
                 return newState
             }
