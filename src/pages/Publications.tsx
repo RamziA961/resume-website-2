@@ -9,8 +9,8 @@ const Publications : React.FC<{
     state: AppState, 
     dispatch: React.Dispatch<DispatchActionType>,
 }> = (props): JSX.Element => {
-    const { state, dispatch } = props
 
+    const { state, dispatch } = props
     const [entries, setEntries] = useState<undefined | {[year: string]: PublicationCardType[]}>(state.publications)
     const [progress, setProgress] = useState(!state.publications ? 0 : 100)
     
@@ -52,8 +52,9 @@ const Publications : React.FC<{
                     </Divider>
                     {entries[year].map(pub =>
                         <PublicationCard
-                            key = {pub.title}
-                            {...pub}
+                            key = { pub.title }
+                            { ...pub }
+                            { ...props } 
                         />
                     )}
                 </Fragment>

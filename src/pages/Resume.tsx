@@ -30,16 +30,15 @@ const Resume : React.FC<{
                     })
 
                     const url = URL.createObjectURL(res.data)
-
-                    setContent(url)
                     dispatch(DispatchAction('SET_RESUME', {'resume': url}))
+                    setContent(url)
 
                 } catch(err) {
                     setColor('error')
                 }
             })()
         }
-    })
+    }, [content])
 
     useEffect(() => {
         const start = Date.now()

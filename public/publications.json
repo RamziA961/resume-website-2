@@ -5,11 +5,11 @@
             "authors": ["Ramzi Abou Chahine", "Donjae Kwon", "Chungman Lim", "Guhnyuk Park", "Hasti Seifi"],
             "publisher": "TBA",
             "link": "",
+            "linkExt": "",
             "start": "2021",
             "end": "present",
             "description": "A conference paper investigating the effects of a vibrotactile stimulus' amplitude on user perception. The paper also attempts to address the viability of crowdsourced experiments in the field of haptic technology by comparing the robust parameters observed online and in lab experiments, conducted on iOS and Android.",
             "verbose": ["More details to come."]
         }
     ]
-
 }

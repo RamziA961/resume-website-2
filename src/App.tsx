@@ -14,6 +14,7 @@ import Home from './pages/Home'
 import Projects from './pages/Projects';
 import Publications from './pages/Publications';
 import Resume from './pages/Resume'
+
 import Reducer, { AppState } from './reducers/Reducer';
 
 const Initializer : React.FC<{}> = (props) => {
@@ -84,6 +85,7 @@ const App : React.FC<{
                 <Routes>
                     <Route path = '/' element = { <Home state = {state} dispatch = {dispatch}/> }/>
                     <Route path = 'pub' element = { <Publications state = {state} dispatch = {dispatch}/> }/>
+                    {/* <Route path = 'pub/:pubId' element = {<PublicationViewer state = {state} dispatch = { dispatch }/>}/>  */}
                     <Route path = 'proj' element = { <Projects state = {state} dispatch = {dispatch}/> }/>
                     <Route path = 'resume' element = { <Resume state = {state} dispatch = {dispatch}/> }/>
                     <Route path = '*' element = {<Navigate to = '/'/>}/>

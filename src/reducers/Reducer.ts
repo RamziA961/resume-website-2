@@ -7,6 +7,7 @@ export type AppState = {
     resume?: string,
     projects?: {[year: string]: ProjectCardType[]},
     publications?: {[year: string]: PublicationCardType[]},
+    publicationPaths? : {[id: string]: string},
     home: {
         currPage: number,
         numPages: number,
@@ -25,7 +26,8 @@ export type DispatchOperationType =
     'SET_CURR_HOME_PAGE' |
     'SET_ON_HOME_PAGE' |
     'SET_ANIM_DIR' |
-    'SET_PROFILE_IMAGE'
+    'SET_PROFILE_IMAGE' |
+    'ADD_PUBLICATION_PATH'
 
 export type DispatchActionType = {
     type?: DispatchOperationType
@@ -114,6 +116,20 @@ const Reducer = (state: AppState , action : DispatchActionType) : AppState => {
 
                 if (payload && payload['profileImage'] && typeof payload['profileImage'] === 'string')
                     newState.home.profileImage = payload['profileImage']
+
+                return newState
+            }
+            case 'ADD_PUBLICATION_PATH': {
+                let newState = {... state}
+                
+                if(payload && payload['publicationPath']) {
+                   
+                    if(!newState['publicationPaths']) {
+                        newState.publicationPaths = {... state.publicationPaths}
+                    }
+                    
+                    newState.publicationPaths[payload.pubid] = payload.path
+                }
 
                 return newState
             }
