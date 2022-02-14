@@ -19,7 +19,9 @@ const Resume : React.FC<{
     
     useEffect(() => {
         if(!content) {
-            (async () => {
+            console.log('resume request')
+
+            const req = (async () => {
                 try {
                     const res = await axios({
                         url: '/Resume.pdf',
@@ -49,7 +51,7 @@ const Resume : React.FC<{
             action: 'Duration of Interaction (Minutes)',
             value: Math.round((Date.now() - start) / (60 * 1000))
         })
-    })
+    }, [window.location.pathname])
 
     return (
         <Box
